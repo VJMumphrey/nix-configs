@@ -16,6 +16,7 @@
         htop 
         git
         brave 
+        zsh
 
         # -- useful languages --
         python312
@@ -48,7 +49,7 @@
     ];
 
     boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
+    boot.loader.grub.device = "/dev/vda3";
 
     users.users = {
         hunter = {
@@ -59,36 +60,14 @@
         };
     };
 
-    services = {
-        networking = {
-            networkmanager.enable = true;
-            networkmanager.networks = {
-                wired = {
-                    dhcp4 = true;
-                };
-            };
-        };
-    };
+    networking.firewall.enable = true;
+    networkmanager.enable = true;
+    networkmanager.networks.wired.dhcp4 = true;
 
-    sway = {
-            enable = true;
-            extraPackages = with pkgs; [
-                # Add additional packages for Sway configuration here
-            ];
-        };
-
-        swaylock = {
-            enable = true;
-        };
-
-        mako = {
-            enable = true;
-        };
-
-        swayrbar = {
-            enable = true;
-        };
-    };
+    programs.sway.enable = true;
+    programs.swaylock.enable = true;
+    programs.mako.enable = true;
+    programs.swayrbar.enable = true;
 
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;

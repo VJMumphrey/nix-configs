@@ -30,12 +30,21 @@
         alacritty  
         mako 
 
+        # TODO hyperland is better for keybinds
+
         # reversing tools
         rizin
-        cutter 
-        ghidra 
+        rizinPlugins.rz-ghidra
+
+        # this might still work
+        cutterPlugins.sigdb
+
+        # python packages for ROP exploitation
         python312Packages.ropper 
         python312Packages.ropgadget
+
+        # other plugins   
+        python312Packages.pwntools
     ];
 
     boot.loader.grub.enable = true;

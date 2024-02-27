@@ -39,6 +39,20 @@ in
 
         ];
 
+        # keep the homedir from being wiped after a reboot
+        home.persistence."/persist/home" = {
+            directories = [
+              "Downloads"
+              "Music"
+              "Pictures"
+              "Documents"
+              "Videos"
+              ".gnupg"
+              ".ssh"
+            ];
+            allowOther = true;
+          };
+
         # can be used if we want to use git version control in the future
         #programs.git = {
         #    enable = true;
@@ -57,10 +71,10 @@ in
         wayland.windowManager.sway = {
             enable = true;
             config = rec {
-              modifier = "Mod4";
+              modifier = "Mod1"; # left Alt
               # Use kitty as default terminal
               terminal = "alacritty"; 
             };
-          };
+        };
     };
 }

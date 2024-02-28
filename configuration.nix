@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
 in
 {
 
@@ -19,13 +19,14 @@ in
   boot.loader.grub.devices = [ "/dev/vda" ];
   boot.loader.grub.useOSProber = true;
 
+  system.stateVersion = "23.11"; # Did you read the comment?
+
   networking.networkmanager.enable = true;
   #services.openssh.enable = true;
   
+  # needed for home-manager 
   security.polkit.enable = true;
   
-  system.stateVersion = "23.11"; # Did you read the comment?
-
   users.users."hunter" = {
     isNormalUser = true;
     initialPassword = "1";     # change the password after install
@@ -33,8 +34,8 @@ in
   };
 
   # enable sway and wayland 
-  programs.sway.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.WL_ENABLE_SOFTWARE_RENDERING = "1";
 
   # set the default shell on os to zsh
   programs.zsh.enable = true;
@@ -42,18 +43,14 @@ in
 
   environment.systemPackages = with pkgs; [
     # status bar
+    pkgs.sway
     pkgs.swayrbar
     pkgs.swaylock
     pkgs.swayidle
 
     # notification
     pkgs.mako
-    libnotify
-
-    pkgs.networkmanagerapplet
-
-    # bg 
-    pkgs.swww
+    pkgs.libnotify
 
     # web browser
     pkgs.brave
@@ -61,8 +58,18 @@ in
     # text editior
     pkgs.neovim
 
+    # terminals
+    pkgs.foot
+
     # screenshot tool
     pkgs.grim
+
+    # wayland xrandr 
+    pkgs.wlr-randr
+
+    # used to manage dotfiles    
+    # per user basis
+    pkgs.home-manager
   ];
     
   # this is for X compatibility 

@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-    programs.home-manager.enable = true;
-
     home-manager.users.my_username = {
         /* The home.stateVersion option does not have a default and must be set */
         home.stateVersion = "20.03";
@@ -14,7 +12,7 @@
 
             # all-in-one re tool framework
             pkgs.rizin
-            pkgs.rizinPackages.rzghidra
+            pkgs.rizinPlugins.rz-ghidra
 
             # some langs
             pkgs.libgcc
@@ -50,6 +48,10 @@
               modifier = "Mod1"; # left Alt
               # Use alacritty as default terminal
               terminal = "alacritty"; 
+              startup = [
+                # Launch Firefox on start
+                {command = "mako";}
+              ];
             };
         };
     };

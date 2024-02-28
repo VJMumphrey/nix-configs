@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+in
+{
 
-{ 
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    (import "${home-manager}/nixos")
+    ./hardware-configuration.nix
+  ];
 
   # for UEFI
   #boot.loader.systemd-boot.enable = true;
@@ -12,8 +15,8 @@
 
   # for non-uefi systems 
   boot.loader.grub.enable = true;
-  boot.loader.device = "/dev/vda";
-  # boot.loader.grub.useOSProber = true;
+  #boot.loader.device = "/dev/vda";
+  boot.loader.grub.useOSProber = true;
 
   networking.networkmanager.enable = true;
   #services.openssh.enable = true;
@@ -25,11 +28,7 @@
   users.users."hunter" = {
     isNormalUser = true;
     initialPassword = "1";     # change the password after install
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-
-    imports = [
-        ./home.nix
-    ];
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
   programs.sway.enable = true;
@@ -39,7 +38,7 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  evniroment.systemPackages [
+  environment.systemPackages = with pkgs; [
     # status bar
     pkgs.swayrbar
     pkgs.swaylock
@@ -52,22 +51,22 @@
     pkgs.networkmanagerapplet
 
     # bg 
-    swww
+    pkgs.swww
 
     # terminal
-    alacritty
+    pkgs.alacritty
 
     # app launcher 
-    rofi-wayland
+    pkgs.rofi-wayland
 
     # web browser
-    brave
+    pkgs.brave
 
     # text editior
-    neovim
+    pkgs.neovim
 
     # screenshot tool
-    grim
+    pkgs.grim
   ];
     
   # this is for X compatibility 
@@ -79,14 +78,12 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # pipwire is used for screen sharing
+  # pipewire is used for screen sharing
   sound.enable = true;
   security.rtkit.enable = true;
-  services.pipwire = {
+  services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32bit = true;
     pulse.enable = true;
-    # jack.enable = true;
   };
 }

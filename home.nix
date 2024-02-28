@@ -25,8 +25,6 @@
 
             # fonts
             pkgs.fira-mono
-            pkgs.fira-code
-            pkgs.fira-code-symbols
 
             # for the builds 
             pkgs.gnumake
@@ -49,7 +47,7 @@
 
         programs.neovim = {
           enable = true;
-          extraConfig = ''
+          extraLuaConfig = ''
             vim.opt.guicursor = ""
             vim.opt.nu = true
             vim.opt.relativenumber = true

@@ -1,14 +1,9 @@
 { config, pkgs, ... }:
 {
-    home-manager.users.my_username = {
-        /* The home.stateVersion option does not have a default and must be set */
-        home.stateVersion = "20.03";
-
+    home-manager.users.hunter = {
         # packages for the hunter user are defined here along with some configs
         home.packages = [
-            pkgs.neovim
             pkgs.git 
-            pkgs.brave
 
             # all-in-one re tool framework
             pkgs.rizin
@@ -16,6 +11,7 @@
 
             # some langs
             pkgs.libgcc
+            pkgs.gcc
             pkgs.python312
             pkgs.go
             pkgs.rustup
@@ -45,14 +41,21 @@
         wayland.windowManager.sway = {
             enable = true;
             config = rec {
-              modifier = "Mod1"; # left Alt
-              # Use alacritty as default terminal
-              terminal = "alacritty"; 
+              modifier = "Mod4"; # superkey
+
+              gaps = rec {
+                smartBorders = "on";
+                smartGaps = true;
+              };
+
               startup = [
                 # Launch Firefox on start
                 {command = "mako";}
               ];
             };
         };
+
+        /* The home.stateVersion option does not have a default and must be set */
+        home.stateVersion = "23.11";
     };
 }

@@ -7,6 +7,7 @@ in
   imports = [
     (import "${home-manager}/nixos")
     ./hardware-configuration.nix
+    ./home.nix
   ];
 
   # for UEFI
@@ -15,7 +16,7 @@ in
 
   # for non-uefi systems 
   boot.loader.grub.enable = true;
-  #boot.loader.device = "/dev/vda";
+  boot.loader.grub.devices = [ "/dev/vda" ];
   boot.loader.grub.useOSProber = true;
 
   networking.networkmanager.enable = true;
@@ -31,6 +32,7 @@ in
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
+  # enable sway and wayland 
   programs.sway.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -52,12 +54,6 @@ in
 
     # bg 
     pkgs.swww
-
-    # terminal
-    pkgs.alacritty
-
-    # app launcher 
-    pkgs.rofi-wayland
 
     # web browser
     pkgs.brave

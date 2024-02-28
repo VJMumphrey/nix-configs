@@ -1,15 +1,10 @@
 { config, pkgs, ... }:
-let
-    home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-in
 {
-    imports = [
-        (import "${home-manager}/nixos")
-    ];
+    programs.home-manager.enable = true;
 
     home-manager.users.my_username = {
         /* The home.stateVersion option does not have a default and must be set */
-        home.stateVersion = "18.09";
+        home.stateVersion = "20.03";
 
         # packages for the hunter user are defined here along with some configs
         home.packages = [
@@ -20,38 +15,19 @@ in
             # all-in-one re tool framework
             pkgs.rizin
             pkgs.rizinPackages.rzghidra
-            pkgs.python312Packages.ropper
 
+            # some langs
             pkgs.libgcc
             pkgs.python312
             pkgs.go
             pkgs.rustup
 
-            # packages needed for swaywm
-            pkgs.sway
-            pkgs.swayrbar
-            pkgs.swaylock
-
             # nice python packages to have
-            pkgs.python312Packages.ropper
-            pkgs.python312Packages.ropgadget
-            pkgs.python312Packages.pwntools
+            #pkgs.python312Packages.ropper
+            #pkgs.python312Packages.ropgadget
+            #pkgs.python312Packages.pwntools
 
         ];
-
-        # keep the homedir from being wiped after a reboot
-        home.persistence."/persist/home" = {
-            directories = [
-              "Downloads"
-              "Music"
-              "Pictures"
-              "Documents"
-              "Videos"
-              ".gnupg"
-              ".ssh"
-            ];
-            allowOther = true;
-          };
 
         # can be used if we want to use git version control in the future
         #programs.git = {
@@ -72,7 +48,7 @@ in
             enable = true;
             config = rec {
               modifier = "Mod1"; # left Alt
-              # Use kitty as default terminal
+              # Use alacritty as default terminal
               terminal = "alacritty"; 
             };
         };

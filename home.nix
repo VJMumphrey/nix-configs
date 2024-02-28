@@ -16,6 +16,9 @@
             pkgs.go
             pkgs.rustup
 
+            # should contain most archs    
+            pkgs.qemu
+
             # nice python packages to have
             #pkgs.python312Packages.ropper
             #pkgs.python312Packages.ropgadget

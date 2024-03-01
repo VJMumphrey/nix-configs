@@ -20,8 +20,10 @@
             pkgs.go
             pkgs.rustup
 
+
             # should contain most archs    
             pkgs.qemu
+            pkgs.frida-tools
 
             # fonts
             pkgs.fira-mono

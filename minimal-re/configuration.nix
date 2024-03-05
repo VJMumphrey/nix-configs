@@ -28,6 +28,7 @@ in
   security.polkit.enable = true;
 
   # enable dwm 
+  services.xserver.enable = true;
   services.xserver.windowManager.dwm.enable = true;
   
   users.users."hunter" = {
@@ -37,11 +38,10 @@ in
   };
 
   # set the default shell on os to zsh
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  programs.bash.enable = true;
+  users.defaultUserShell = pkgs.bash;
 
   environment.systemPackages = with pkgs; [
-    pkgs.dwm
     pkgs.dmenu
     pkgs.dwmbar
 
@@ -55,6 +55,7 @@ in
     pkgs.st
 
     pkgs.xrandr
+    pkgs.xdm
 
     # used to manage dotfiles    
     # per user basis

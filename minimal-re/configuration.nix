@@ -38,7 +38,6 @@ in
   };
 
   # set the default shell on os to zsh
-  programs.bash.enable = true;
   users.defaultUserShell = pkgs.bash;
 
   environment.systemPackages = with pkgs; [
@@ -54,8 +53,9 @@ in
     # terminals
     pkgs.st
 
-    pkgs.xrandr
-    pkgs.xdm
+    pkgs.xorg.xrandr
+    pkgs.xorg.xdm
+    pkgs.xorg.xinit
 
     # used to manage dotfiles    
     # per user basis

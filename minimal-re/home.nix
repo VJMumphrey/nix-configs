@@ -6,14 +6,9 @@
         home.packages = [
             pkgs.git 
 
-            # all-in-one re framework
-            # install plugins seperatly
-            pkgs.radare2
-
             # has better analysis than r2    
             pkgs.rizin
 
-            #
             pkgs.ghidra
 
             # some langs
